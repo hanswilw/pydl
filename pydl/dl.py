@@ -29,10 +29,10 @@ def create_links(var_link, iterations):
     lowercase_count = str.count(var_link, variables[1])
     uppercase_count = str.count(var_link, variables[2])
 
-    links = replace_integer(var_link, iterations)
-    for i in range(int_count - 1):
+    links = [var_link]
+    for i in range(int_count):
         for j in range(len(links)):
-            links.extend(replace_integer(links.pop(i), iterations))
+            links.extend(replace_integer(links.pop(i - 1), iterations))
 
     for i in range(lowercase_count):
         for j in range(len(links)):
@@ -79,33 +79,15 @@ def increment_failed():
 
 
 def replace_integer(var_link, iterations):
-
-    temp_list = []
-
-    for i in range(iterations):
-        temp_list.append(str.replace(var_link, '{I}', str(i), 1))
-
-    return temp_list
+    return [str.replace(var_link, '{I}', str(i), 1) for i in range(iterations)]
 
 
 def replace_lowercase(var_link):
-
-    temp_list = []
-
-    for l in ascii_lowercase:
-        temp_list.append(str.replace(var_link, '{a}', l, 1))
-
-    return temp_list
+    return [str.replace(var_link, '{a}', i, 1) for i in ascii_lowercase]
 
 
 def replace_uppercase(var_link):
-
-    temp_list = []
-
-    for u in ascii_uppercase:
-        temp_list.append(str.replace(var_link, '{A}', u, 1))
-
-    return temp_list
+    return [str.replace(var_link, '{A}', i, 1) for i in ascii_uppercase]
 
 
 def main():
